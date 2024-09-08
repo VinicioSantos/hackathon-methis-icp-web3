@@ -1,7 +1,7 @@
 use ic_cdk_macros::{init, query, update};
 use std::cell::RefCell;
 
-type Message = (String, String, String); // (sender, recipient, message)
+type Message = (String, String); // (sender, recipient, message)
 thread_local! {
     static MESSAGES: RefCell<Vec<Message>> = RefCell::new(Vec::new());
 }
@@ -17,18 +17,15 @@ fn greet(name: String) -> String {
 }
 
 #[update]
-fn send_message(sender: String, recipient: String, message: String) {
+fn send_message(sender: String, message: String) {
     MESSAGES.with(|messages| {
-        messages.borrow_mut().push((sender, recipient, message));
+        messages.borrow_mut().push((sender, message));
     });
 }
 
 #[query]
-fn get_messages(recipient: String) -> Vec<Message> {
+fn get_messages() -> Vec<Message> {
     MESSAGES.with(|messages| {
-        messages.borrow().iter()
-            .filter(|(_, r, _)| r == &recipient)
-            .cloned()
-            .collect()
+        messages.borrow().clone()
     })
 }
