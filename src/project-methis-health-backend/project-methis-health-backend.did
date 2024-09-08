@@ -1,0 +1,5 @@
+service : {
+    "greet": (text) -> (text) query;
+    "send_message": (text, text) -> () oneway;
+    "get_messages": () -> (vec record { text; text }) query;
+}

@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "src/project-methis-health-backend"
+]
+resolver = "2"
