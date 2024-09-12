@@ -2,4 +2,6 @@ service : {
     "greet": (text) -> (text) query;
     "send_message": (text, text) -> () oneway;
     "get_messages": () -> (vec record { text; text }) query;
+    "register_user": (principal, text) -> () oneway;
+    "whoami": () -> (principal) query; // Adicionando a função whoami
 }
